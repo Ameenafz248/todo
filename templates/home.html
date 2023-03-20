@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}
+    Todo
+{% endblock title %}
+{% block content %}
+<div class="todo-list">
+    <form class="todo-form hide" method="post" action="">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="todo-sub-btn"><i class="fa-solid fa-plus"></i></button>
+    </form>
+    <a class="todo-add-btn"><i id="todo-icon" class="fa-solid fa-square-plus"></i></a>
+    {% for todo in todo_list %}
+        <div class="todo-item"  id="todo-{{ todo.id }}">
+            <div class="todo-details">
+                <h3 class="todo-title">{{ todo.title }}</h3>
+                {% if todo.is_past %}
+                <p class="todo-duedate past" >{{ todo.duedate|date:"D, d M" }}</p>
+                {% else %}
+                <p class="todo-duedate">{{ todo.duedate|date:"D, d M" }}</p>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+
+{% endblock content %}
+{% block javascript %}
+<script>
+    var addButton = document.getElementById("todo-icon");
+    addButton.addEventListener("click", newTodo);
+    
+    function newTodo() {
+       let newForm = document.querySelector('.todo-form');
+       let addB = document.querySelector('.todo-add-btn');
+       addB.classList.toggle('hide');
+       newForm.classList.toggle('hide');
+       let formTitle = document.querySelector(".todo-form-title")
+       formTitle.focus()
+    }
+</script>
+{% endblock javascript %}
+
