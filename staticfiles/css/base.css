@@ -1,3 +1,4 @@
+
 @import
 url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&family=Roboto:wght@100;300;400&display=swap');*
 
@@ -416,7 +417,6 @@ label {
         width : 70vw;
         margin-left : 2rem;
         margin-right : 2rem;
-        padding-top : 0;
     }
 
    .todo-item {
@@ -495,12 +495,12 @@ label {
 
     }
     .todo-list {
-        padding : 0;
         width : 94vw;
         margin-left : 3rem;
         margin-right : 3rem;
     }
 
+}
 
     
 @media screen and (max-width : 500px) {
