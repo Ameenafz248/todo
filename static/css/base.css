@@ -33,6 +33,14 @@ body {
     background-color: #001540;
 }
 
+input,
+textarea,
+button,
+select,
+a {
+    -webkit-tap-highlight-color: transparent;
+}    
+
 .container {
     display: flex;
     flex-direction: column;
@@ -91,6 +99,12 @@ body {
 }
 
 
+.todo-list-completed {
+    height : 30vh;
+    margin : 2rem 0;
+}
+
+
 .todo-item {
     display : flex;
     background-color: #111;
@@ -104,6 +118,8 @@ body {
     position: relative;
     /* overflow: hidden; */
 }
+
+
 
 .todo-details {
     display: flex;
@@ -121,6 +137,12 @@ body {
     margin-bottom : 0.05rem;
 }
 
+.todo-title-completed {
+    color : #888;
+    text-decoration: line-through;
+    /* margin-bottom : 1rem; */
+}
+
 .todo-duedate {
    color : #fff;
    font-size : 1.1rem;
@@ -128,10 +150,9 @@ body {
    margin-bottom: 0;
 }
 
-
-
-
-
+.todo-duedate-completed {
+   color : #888;
+}
 
 .past {
     color : red;
@@ -156,11 +177,6 @@ body {
     margin-right: 1rem;
     font-size : 2rem;
     font-weight: 800;
-}
-
-.todo-add-btn i {
-    font-size : 4rem;
-    color : #fff;
 }
 
 .fa-square-plus {
@@ -208,9 +224,6 @@ input[type="date"]{
     text-align : right;
 }
 
-
-
-
 .todo-sub-btn {
     background-color: #111;
     border : none;
@@ -248,55 +261,6 @@ label {
 }
 
 
-
-
-
-.todo-list-completed {
-    display: flex;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    width : 50vw;
-    height : 30vh;
-    flex-direction: column;
-    justify-content: start;
-    align-items: center;
-    background-color: #222;
-    border-radius : 1rem;
-    padding : 2rem 0 0 0;
-    margin : 2rem 0;
-}
-
-
-.todo-item-completed {
-    display : flex;
-    background-color: #111;
-    width : 98%;
-    margin-bottom : 1rem;
-    max-height :   6.5rem; 
-    border-radius: 1rem;
-    padding : 2rem;
-    justify-content: space-between; 
-    align-items: center;
-    position: relative;
-}
-
-.todo-title-completed {
-    font-size : 2.3rem;
-    letter-spacing: 0.2rem;
-    color : #888;
-    text-decoration: line-through;
-    font-weight: 800;
-    /* margin-bottom : 1rem; */
-}
-
-
-.todo-duedate-completed {
-   color : #888;
-   font-size : 1.1rem;
-   letter-spacing: 0.1rem;
-   margin-bottom: 0;
-}
-
 .nothing {
    color : white; 
     font-size: 3rem;
@@ -304,32 +268,6 @@ label {
 }
 
 
-.round {
-  position: relative;
-  padding : 1rem;
-}
-
-.round label {
-  background-color: #fff;
-  border: 0.25rem solid #ccc;
-  border-radius: 50%;
-  cursor: pointer;
-  height: 4vh;
-  left: 0;
-  bottom: 0.005rem;
-  position: absolute;
-  width: 4vh;
-}
-
-
-.round input[type="checkbox"] {
-  visibility: hidden;
-}
-
-.round input[type="checkbox"]:checked + label {
-  background-color: #001540;
-  border-color: #001540;
-}
 
 .is_completed {
     position: absolute;
@@ -337,9 +275,6 @@ label {
 }
 
 
-/* .round input[type="checkbox"]:checked {
-    visibility: hidden;
-}  */
 
 .auth-container {
     width: 30vw;
@@ -405,21 +340,12 @@ label {
     cursor : pointer;
 }
 
-.todo-delete-btn i {
-    font-size: 2rem;
-    color : white;
-}
 
 .fa-trash {
     font-size: 2rem;
     color : white;
 }
 
-/* .nav-options {
-    border : 1px solid white;
-    width: 50vw;
-    position: relative;
-} */
 
 
 .search-box {
@@ -473,8 +399,6 @@ label {
 
 @media screen and (max-width : 1200px) {
 
-
-    
     .auth-container {
         width: 35vw;
         height: 40vh;
@@ -486,29 +410,19 @@ label {
         padding-bottom : 0;
 
     }
-    .todo-list {
-        width : 70vw;
-        margin-left : 2rem;
-        margin-right : 2rem;
-    }
 
-    .todo-list-completed {
+    .todo-list {
         width : 70vw;
         margin-left : 2rem;
         margin-right : 2rem;
-    }
-    .todo-list {
         padding-top : 0;
     }
 
    .todo-item {
     padding : 1.5rem;
    }
-   
-   .todo-item-completed {
-    padding : 1.5rem;
-   }
 
+   
    .todo-form {
     padding : 1.5rem;
    }
@@ -525,12 +439,6 @@ label {
     font-size : 2rem; 
    }
 
-   .todo-title-completed {
-    font-size : 2rem; 
-   }
-
-   
-
 }
 @media screen and (max-width : 1050px) {
     
@@ -545,9 +453,6 @@ label {
     font-size : 1.8rem; 
    }
 
-   .todo-title-completed {
-    font-size : 1.8rem; 
-   }
 
    input[type="date"]{
         width : 3.5rem;
@@ -581,32 +486,21 @@ label {
 }
 
 @media screen and (max-width : 600px) {
-    .todo-list {
-        padding-top : 0;
-    }
 
     .mainheader {
-        width : 98vw;
+        width : 94vw;
         padding-top : 0;
         padding-bottom : 0;
 
     }
     .todo-list {
-        width : 98vw;
+        padding : 0;
+        width : 94vw;
         margin-left : 3rem;
         margin-right : 3rem;
     }
 
-    .todo-list-completed {
-        width : 98vw;
-        margin-left : 3rem;
-        margin-right : 3rem;
-    }
-}
 
-
-    
-    
     
 @media screen and (max-width : 500px) {
 

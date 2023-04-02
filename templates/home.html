@@ -44,17 +44,13 @@
                                     <a onClick="document.getElementById('t{{ todo.id }}').submit()">
                                         <i class="fa-solid fa-circle"></i>
                                     </a>
-                                <!-- <div class="round">
-                                <input type="checkbox" id="d{{ todo.id }}" name="completed" class="is_completed" onChange="document.getElementById('t{{ todo.id }}').submit()"/>
-                                    <label for="d{{ todo.id }}"></label>
-                                </div> -->
                             </form>
                     </div>
 
                 {% endfor %}
             </div>
             {% if forloop.last %}
-                <div class="todo-list-completed hidden">
+                <div class="todo-list todo-list-completed hidden">
                 </div>
             {% endif %}
         {% elif forloop.counter0 == 0 %} 
@@ -72,16 +68,16 @@
             </div>
         {% endif %}
         {% if status %}
-                <div class="todo-list-completed">
+                <div class="todo-list todo-list-completed">
             {% for todo in list %}
-                    <div class="todo-item-completed"  id="todo-{{ todo.id }}">
+                    <div class="todo-item"  id="todo-{{ todo.id }}">
                         <div class="todo-details">
-                            <h3 class="todo-title-completed">{{ todo.title }}</h3>
-                            <p class="todo-duedate-completed" >{{ todo.duedate|date:"D, d M" }}</p>
+                            <h3 class="todo-title todo-title-completed">{{ todo.title }}</h3>
+                            <p class="todo-duedate todo-duedate-completed" >{{ todo.duedate|date:"D, d M" }}</p>
                         </div>
                             <form class="complete_form" id="d{{ todo.id }}" method="POST" action="{{ todo.id }}/delete/">
                                 {% csrf_token %}
-                                <button class="todo-delete-btn" type="submit" class="comple">
+                                <button  class="todo-delete-btn" type="submit" >
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
                             </form>
@@ -105,7 +101,7 @@
                 {% endif %}
             </div>
 
-            <div class="todo-list-completed hidden">
+            <div class="todo-list todo-list-completed hidden">
 
             </div>
 
