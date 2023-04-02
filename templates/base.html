@@ -4,17 +4,25 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="{% static 'css/base.css' %}" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
         <title>{% block title %}{% endblock title %}</title>
-
+        <link href="{% static 'fontawesomefree/css/fontawesome.css' %}" rel="stylesheet" type="text/css">
+        <link href="{% static 'fontawesomefree/css/solid.css' %}" rel="stylesheet" type="text/css">
+        <script src="{% static 'fontawesomefree/js/fontawesome.js' %}"></script>
+        <script src="{% static 'fontawesomefree/js/solid.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'css/base.css' %}" />
     </head>
     <body>
-        <div class="container">
             <header class="mainheader">
-                <i class="fa-solid fa-square-check"></i>
-                <h1 class="mainheading">myTodo</h1>
+                <h1 class="mainheading">TaskMate</h1>
+                {% if user.is_authenticated %}
+                <form id="logout-form" action="accounts/logout/" method="post">
+                    {% csrf_token %}
+                    <span class="logout" onclick="document.getElementById('logout-form').submit()">Log out</span>
+                </form>
+                {% endif %}
             </header>
+        <div class="container">
             {% block content %}
             {% endblock content %}
         </div>

@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "allauth", 
     "allauth.account",
     "todo.apps.TodoConfig",
+    "fontawesomefree",
 ]
 
 AUTHENTICATION_BACKENDS = [

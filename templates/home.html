@@ -3,41 +3,156 @@
     Todo
 {% endblock title %}
 {% block content %}
-<div class="todo-list">
-    <form class="todo-form hide" method="post" action="">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button class="todo-sub-btn"><i class="fa-solid fa-plus"></i></button>
-    </form>
-    <a class="todo-add-btn"><i id="todo-icon" class="fa-solid fa-square-plus"></i></a>
-    {% for todo in todo_list %}
-        <div class="todo-item"  id="todo-{{ todo.id }}">
-            <div class="todo-details">
-                <h3 class="todo-title">{{ todo.title }}</h3>
-                {% if todo.is_past %}
-                <p class="todo-duedate past" >{{ todo.duedate|date:"D, d M" }}</p>
+            <a class="todo-add-btn"><span>Task</span><i id="todo-icon" class="fa-solid fa-square-plus"></i></a>
+            <div class="search-box">
+                <form class="search-box-form" action="" method="get">
+                        <input types="search" class="search-bar" name="q" placeholder="Search your task.."/> 
+                        <a class="search-link-a" onClick="document.querySelector('.search-box-form').submit()">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </a>
+                   {% if request.GET.q %} 
+                        <a class="search-clear-a">
+                            <i class="fa-regular fa-circle-xmark"></i>
+                        </a>
+                    {% endif %}
+                </form>
+            </div>
+
+    {% regroup todo_list by completed as seperate_list %}
+    {% for status, list in seperate_list %}
+        {% if not  status and   forloop.counter0 == 0 %}
+            <div class="todo-list">
+                <form class="todo-form hide" method="post" action="">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button class="todo-sub-btn"><i class="fa-solid fa-plus"></i></button>
+                </form>
+                {% for todo in list %}
+
+                    <div class="todo-item"  id="todo-{{ todo.id }}">
+                        <div class="todo-details">
+                            <h3 class="todo-title">{{ todo.title }}</h3>
+                            {% if todo.is_past %}
+                            <p class="todo-duedate past" >{{ todo.duedate|date:"D, d M" }}</p>
+                            {% else %}
+                            <p class="todo-duedate">{{ todo.duedate|date:"D, d M" }}</p>
+                            {% endif %}
+                        </div>
+                            <form class="complete_form" id="t{{ todo.id }}" method="POST" action="{{ todo.id }}/update/">
+                                {% csrf_token %} 
+                                <input type="checkbox" id="d{{ todo.id }}" name="completed" class="is_completed" checked />
+                                    <a onClick="document.getElementById('t{{ todo.id }}').submit()">
+                                        <i class="fa-solid fa-circle"></i>
+                                    </a>
+                                <!-- <div class="round">
+                                <input type="checkbox" id="d{{ todo.id }}" name="completed" class="is_completed" onChange="document.getElementById('t{{ todo.id }}').submit()"/>
+                                    <label for="d{{ todo.id }}"></label>
+                                </div> -->
+                            </form>
+                    </div>
+
+                {% endfor %}
+            </div>
+            {% if forloop.last %}
+                <div class="todo-list-completed hidden">
+                </div>
+            {% endif %}
+        {% elif forloop.counter0 == 0 %} 
+            <div class="todo-list">
+                <form class="todo-form hide" method="post" action="">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button class="todo-sub-btn"><i class="fa-solid fa-plus"></i></button>
+                </form>
+                {% if request.GET.q %}
+                    <h1 class="nothing">No Tasks Found!</h1>
                 {% else %}
-                <p class="todo-duedate">{{ todo.duedate|date:"D, d M" }}</p>
+                <h1 class="nothing">Add Some Tasks!</h1>
                 {% endif %}
             </div>
-        </div>
+        {% endif %}
+        {% if status %}
+                <div class="todo-list-completed">
+            {% for todo in list %}
+                    <div class="todo-item-completed"  id="todo-{{ todo.id }}">
+                        <div class="todo-details">
+                            <h3 class="todo-title-completed">{{ todo.title }}</h3>
+                            <p class="todo-duedate-completed" >{{ todo.duedate|date:"D, d M" }}</p>
+                        </div>
+                            <form class="complete_form" id="d{{ todo.id }}" method="POST" action="{{ todo.id }}/delete/">
+                                {% csrf_token %}
+                                <button class="todo-delete-btn" type="submit" class="comple">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </form>
+                    </div>
+            {% endfor %}
+                </div>
+
+
+        {% endif %}
+    {% empty %}
+            <div class="todo-list">
+                <form class="todo-form hide" method="post" action="">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button class="todo-sub-btn"><i class="fa-solid fa-plus"></i></button>
+                </form>
+                {% if request.GET.q %}
+                    <h1 class="nothing">No Tasks Found!</h1>
+                {% else %}
+                <h1 class="nothing">Add Some Tasks!</h1>
+                {% endif %}
+            </div>
+
+            <div class="todo-list-completed hidden">
+
+            </div>
+
     {% endfor %}
-</div>
 
 
 {% endblock content %}
 {% block javascript %}
 <script>
-    var addButton = document.getElementById("todo-icon");
+    var addButton = document.querySelector(".todo-add-btn");
     addButton.addEventListener("click", newTodo);
+
+    var newForm = document.querySelector('.todo-form');
+    newForm.addEventListener('keydown', function(event) {
+        if (event.code == 'Escape' && !newForm.classList.contains('hide')) {
+            newForm.classList.toggle('hide');
+        }
+       let k = document.querySelector('.nothing');
+       if (k) {
+        k.classList.toggle('hidden');
+       }
+    })
     
     function newTodo() {
+       let k = document.querySelector('.nothing');
+       if (k) {
+        k.classList.toggle('hidden');
+       }
        let newForm = document.querySelector('.todo-form');
-       let addB = document.querySelector('.todo-add-btn');
-       addB.classList.toggle('hide');
+       //let addB = document.querySelector('.todo-add-btn');
+       let list = document.querySelector('.todo-list')
+       //list.prepend(newForm);
+       //addB.classList.toggle('hide');
        newForm.classList.toggle('hide');
        let formTitle = document.querySelector(".todo-form-title")
        formTitle.focus()
+    }
+
+    var clear = document.querySelector('.search-clear-a')
+    clear.addEventListener('click', clearSearch);
+    
+    function clearSearch() {
+       let searchInput = document.querySelector('.search-bar');
+       searchInput.value = "";
+       console.log(searchInput.value);
+       let searchForm = document.querySelector('.search-box-form');
+       searchForm.submit();
     }
 </script>
 {% endblock javascript %}

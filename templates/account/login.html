@@ -4,11 +4,18 @@ Log In
 {% endblock title %}
 
 {% block content %}
-<h1>Log in</h1>
-<form action="" method="post">
+<form action="" method="post" class="auth-container">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Log in</button>
+    <p class="auth-div">
+    <!-- <label class="auth-label" for="id_login">E-mail:</label> -->
+    <input type="email" class="auth-input" name="login" placeholder="E-mail address" autocomplete="email" required id="id_login">
+  </p>
+  <p class="auth-div">
+    <!-- <label class="auth-label" for="id_password">Password:</label> -->
+    <input type="password" name="password" class="auth-input" placeholder="Password" autocomplete="current-password" required id="id_password">
+  </p>
+    <button type="submit" class="auth-submit">Log in</button>
+    <p><span class="auth-span">New user? </span><a href={% url 'account_signup' %} class="auth-swap">register</a></p>
 </form>
 
 {% endblock content %}

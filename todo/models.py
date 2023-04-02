@@ -20,4 +20,4 @@ class Todo(models.Model):
         return self.title
 
     class Meta:
-        ordering = ["-id"]
+        ordering = ['completed', '-id']

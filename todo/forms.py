@@ -19,3 +19,10 @@ class TodoForm(forms.ModelForm):
             'title' : '',
         }
 
+class CompleteForm(forms.ModelForm):
+    class Meta:
+        model = Todo
+        fields = ('completed',)
+        labels = {
+            'completed' : '',
+        }

@@ -1,10 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.views.generic import ListView, CreateView, FormView
+from django.views.generic import ListView, CreateView, FormView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
 from .models import Todo
-from .forms import TodoForm
+from .forms import TodoForm, CompleteForm
 from django.urls import reverse_lazy
 
 
@@ -23,11 +23,17 @@ class TodoListGetView(LoginRequiredMixin, ListView):
     template_name = "home.html"
     
     def get_queryset(self):
-        return Todo.objects.filter(author=self.request.user)
+        queryset =  Todo.objects.filter(author=self.request.user)
+        q = self.request.GET.get("q")
+        if q is None:
+            return queryset
+        return queryset.filter(title__icontains=q)
+        
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['form'] = TodoForm()
+        context['complete'] = CompleteForm()
         return context
 
 class TodoListPostView(LoginRequiredMixin, FormView):
@@ -48,3 +54,26 @@ class TodoListPostView(LoginRequiredMixin, FormView):
         todo.save()
         return super().form_valid(form) 
 
+
+class TodoCompleteView(LoginRequiredMixin,UpdateView):
+    model = Todo
+    template_name = "update_completed.html"
+    fields = ['completed']
+    success_url = reverse_lazy("home")
+
+
+    def get_queryset(self):
+        queryset = super(TodoCompleteView, self).get_queryset()
+        queryset = queryset.filter(author=self.request.user)
+        return queryset
+
+class TodoDeleteView(LoginRequiredMixin, DeleteView):
+    model = Todo
+    template_name = "todo_delete.html"
+    success_url = reverse_lazy("home")
+    
+    def get_queryset(self):
+        queryset = super(TodoDeleteView, self).get_queryset()
+        queryset = queryset.filter(author=self.request.user)
+        return queryset
+    

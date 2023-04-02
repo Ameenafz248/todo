@@ -4,13 +4,24 @@ Sign Up
 {% endblock title %}
 
 {% block content %}
-<h1>Sign Up</h1>
-<form action="" method="post">
+<form action="" method="post" class="auth-container">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Sign Up</button>
-</form>
+    <p class="auth-div">
+    <input class="auth-input" type="email" name="email" placeholder="E-mail address" autocomplete="email" required id="id_email">
+    
+    
+  </p>
 
+  
+  <p class="auth-div">
+    <input type="password" class="auth-input"name="password1" placeholder="Password" autocomplete="new-password" required id="id_password1">
+    
+      
+    
+  </p>
+    <button class="auth-submit" type="submit">Sign Up</button>
+    <p><span class="auth-span">Already a user? </span><a href={% url 'account_login' %} class="auth-swap">login</a></p>
+</form>
 {% endblock content %}
 
 {% block javascript %}
