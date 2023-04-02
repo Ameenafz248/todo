@@ -416,6 +416,7 @@ label {
         width : 70vw;
         margin-left : 2rem;
         margin-right : 2rem;
+        padding-top : 0;
     }
 
     .todo-list-completed {
