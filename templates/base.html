@@ -4,12 +4,9 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
         <title>{% block title %}{% endblock title %}</title>
         <link href="{% static 'fontawesomefree/css/fontawesome.css' %}" rel="stylesheet" type="text/css">
         <link href="{% static 'fontawesomefree/css/solid.css' %}" rel="stylesheet" type="text/css">
-        <script src="{% static 'fontawesomefree/js/fontawesome.js' %}"></script>
-        <script src="{% static 'fontawesomefree/js/solid.js' %}"></script>
         <link rel="stylesheet" href="{% static 'css/base.css' %}" />
     </head>
     <body>
@@ -26,8 +23,6 @@
             {% block content %}
             {% endblock content %}
         </div>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
         {% block javascript %}
         {% endblock javascript %}
     </body>
