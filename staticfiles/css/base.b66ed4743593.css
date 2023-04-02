@@ -1,0 +1,628 @@
+@font-face {
+    font-family: 'Roboto';
+    src: url("fonts/Roboto-Medium.d08840599e05.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: 'GreatVibes';
+    src: url("fonts/GreatVibes-Regular.53e7427de4aa.otf") format("truetype");
+}
+
+@import
+url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900;1000&family=Roboto:wght@100;300;400&display=swap');*
+
+
+{
+    box-sizing: border-box;
+    margin : 0;
+    padding : 0;
+    text-decoration: none;
+    outline : none;
+    font-family: 'Roboto', Times, serif;
+    font-weight: 400;
+}
+
+body::-webkit-scrollbar {
+  width: 1em;
+}
+ 
+body::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+ 
+body::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    background-color: #001540;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width : 100vw;
+    height: 90vh;
+    background-color: #001540;
+    position : relative;
+}
+
+.mainheader {
+    width: 50vw;
+    height : 10vh;
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+    justify-content: space-between;
+    padding : 1rem 2rem 1rem 2rem;
+    border-bottom : 1px solid white;
+    background-color: #001540;
+    margin : 0 auto 0 auto;
+}
+.mainheader i {
+    font-size : 4rem;
+    /* width : 6vw; */
+    text-align: center;
+    color : #eabaf2;
+}
+.logout {
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+}
+.mainheading {
+    font-size: 4rem;
+    height: 5rem; 
+    color : #fff;
+    font-weight: 900;
+}
+
+.todo-list {
+    display: flex;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    width : 50vw;
+    height : 60vh;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    background-color: #222;
+    border-radius : 1rem;
+    padding : 2rem 0 0 0;
+    margin : 2rem 0;
+    margin-top : 0;
+}
+
+
+.todo-item {
+    display : flex;
+    background-color: #111;
+    width : 98%;
+    margin-bottom : 1rem;
+    max-height :   6.5rem; 
+    border-radius: 1rem;
+    padding : 2rem;
+    justify-content: space-between; 
+    align-items: center;
+    position: relative;
+    /* overflow: hidden; */
+}
+
+.todo-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding : 1.5rem 0 1rem 0;
+}
+
+
+.todo-title {
+    font-size : 2.3rem;
+    letter-spacing: 0.2rem;
+    color : #fff;
+    font-weight: 800;
+    margin-bottom : 0.05rem;
+}
+
+.todo-duedate {
+   color : #fff;
+   font-size : 1.1rem;
+   letter-spacing: 0.1rem;
+   margin-bottom: 0;
+}
+
+
+
+
+
+
+.past {
+    color : red;
+}
+
+.todo-add-btn {
+    border : none;
+    background-color:   rgba(1, 1, 1, 0.8);
+    cursor : pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 3rem;
+    margin-bottom : 1rem;
+    border-radius: 10%;
+    padding : 0.5rem;
+    /* transition: opacity .3s ease-out; */
+}
+
+.todo-add-btn span {
+    color : white;
+    margin-right: 1rem;
+    font-size : 2rem;
+    font-weight: 800;
+}
+
+.todo-add-btn i {
+    font-size : 4rem;
+    color : #fff;
+}
+
+.fa-square-plus {
+    font-size : 4rem;
+    color : #fff;
+}
+
+
+.todo-form {
+    display : flex;
+    background-color: #111;
+    width : 98%;
+    max-height: 6.5rem;
+    border-radius: 1rem;
+    padding : 2rem;
+    justify-content: space-between; 
+    align-items: center;
+    position: relative;
+    /* transition : opacity 0.001s ease-in; */
+    margin-bottom: 1rem;
+}
+
+.todo-form-title {
+    font-size : 2rem;
+    letter-spacing: 0.2rem;
+    color : #fff;
+    font-weight: 800;
+    border : none;
+    background-color: #111;
+    border-bottom: 1px solid #fff;
+}
+
+input[type="date"]{
+    font-size: 1.4rem;
+    font-weight: 900;
+    padding : 1rem;
+    letter-spacing: 0.1rem;
+    border: none;
+    outline: none;
+    border-radius: 1rem;
+    background-color: #001540;
+    box-shadow: .1rem .1rem  #444;
+    color : white;
+    margin-right : 0;
+    text-align : right;
+}
+
+
+
+
+.todo-sub-btn {
+    background-color: #111;
+    border : none;
+}
+
+.todo-sub-btn i {
+    font-size : 3rem;
+    font-weight: 900;
+   color : white; 
+   cursor: pointer;
+   text-shadow: .1rem .2rem .05rem #444;
+   
+}
+
+.fa-plus {
+    font-size : 3rem;
+    font-weight: 900;
+   color : white; 
+   cursor: pointer;
+   text-shadow: .1rem .2rem .05rem #444;
+   
+}
+
+.hide {
+    height: 0;
+    padding : 0;
+    margin : 0;
+    opacity: 0;
+
+}
+
+label {
+    font-size : 1.3rem;
+    letter-spacing: .1rem;
+}
+
+
+
+
+
+.todo-list-completed {
+    display: flex;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    width : 50vw;
+    height : 30vh;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    background-color: #222;
+    border-radius : 1rem;
+    padding : 2rem 0 0 0;
+    margin : 2rem 0;
+}
+
+
+.todo-item-completed {
+    display : flex;
+    background-color: #111;
+    width : 98%;
+    margin-bottom : 1rem;
+    max-height :   6.5rem; 
+    border-radius: 1rem;
+    padding : 2rem;
+    justify-content: space-between; 
+    align-items: center;
+    position: relative;
+}
+
+.todo-title-completed {
+    font-size : 2.3rem;
+    letter-spacing: 0.2rem;
+    color : #888;
+    text-decoration: line-through;
+    font-weight: 800;
+    /* margin-bottom : 1rem; */
+}
+
+
+.todo-duedate-completed {
+   color : #888;
+   font-size : 1.1rem;
+   letter-spacing: 0.1rem;
+   margin-bottom: 0;
+}
+
+.nothing {
+   color : white; 
+    font-size: 3rem;
+    font-weight: 700;
+}
+
+
+.round {
+  position: relative;
+  padding : 1rem;
+}
+
+.round label {
+  background-color: #fff;
+  border: 0.25rem solid #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+  height: 4vh;
+  left: 0;
+  bottom: 0.005rem;
+  position: absolute;
+  width: 4vh;
+}
+
+
+.round input[type="checkbox"] {
+  visibility: hidden;
+}
+
+.round input[type="checkbox"]:checked + label {
+  background-color: #001540;
+  border-color: #001540;
+}
+
+.is_completed {
+    position: absolute;
+    left : 9999px;
+}
+
+
+/* .round input[type="checkbox"]:checked {
+    visibility: hidden;
+}  */
+
+.auth-container {
+    width: 30vw;
+    height: 40vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    border : 1px solid white;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding : 4rem;
+    align-items: center;
+}
+
+.auth-div {
+    padding : 1rem; 
+    border-radius: 1rem;
+    width: 90%;
+}
+
+.auth-label {
+    float: left;
+    color : white;
+}
+
+.auth-input {
+    width: 100%;
+    height: 5vh;
+    border : none;
+    background-color: white;
+    border-radius: 0.5rem;
+    padding-left : 1rem;
+
+}
+
+.auth-submit {
+    width: 80%;
+    height: 5vh;
+    border : none;
+    border-radius: 1rem;
+    background-color: #000;
+    font-size: 2rem;
+    color : #fff;
+    padding : 0.5rem;
+    border : 1px groove white;
+}
+
+.auth-span {
+    color : white;
+    font-size : 1.5rem;
+    margin-right : 0.5rem; 
+}
+
+.auth-swap {
+    font-size : 1.5rem;
+    color : white;
+    text-decoration: underline;
+}
+
+.todo-delete-btn {
+    background-color: #111;
+    border : none;
+    cursor : pointer;
+}
+
+.todo-delete-btn i {
+    font-size: 2rem;
+    color : white;
+}
+
+.fa-trash {
+    font-size: 2rem;
+    color : white;
+}
+
+/* .nav-options {
+    border : 1px solid white;
+    width: 50vw;
+    position: relative;
+} */
+
+
+.search-box {
+    background-color: white;
+    margin-bottom: 1rem;
+    padding : 0.8rem;
+    padding-right: 1rem;
+    padding-left : 1rem;
+    border-radius: 1rem;
+}
+
+.search-bar {
+    background-color: white;
+    border : none;
+}
+
+.search-link-a {
+    border : none;
+    cursor: pointer;
+}
+
+.fa-magnifying-glass {
+    color : #001540;
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+
+.fa-circle-xmark {
+    color : #001540;
+    cursor: pointer;
+    margin-left : 0.2rem;
+    font-size: 1.5rem;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.fa-circle {
+    color : white;
+    font-size : 2rem;
+    cursor: pointer;
+}
+
+.fa-circle:hover {
+    color : #001540;
+}
+
+
+
+
+@media screen and (max-width : 1200px) {
+
+
+    
+    .auth-container {
+        width: 35vw;
+        height: 40vh;
+    }
+
+    .mainheader {
+        width : 70vw;
+        padding-top : 0;
+        padding-bottom : 0;
+
+    }
+    .todo-list {
+        width : 70vw;
+        margin-left : 2rem;
+        margin-right : 2rem;
+    }
+
+    .todo-list-completed {
+        width : 70vw;
+        margin-left : 2rem;
+        margin-right : 2rem;
+    }
+    .todo-list {
+        padding-top : 0;
+    }
+
+   .todo-item {
+    padding : 1.5rem;
+   }
+   
+   .todo-item-completed {
+    padding : 1.5rem;
+   }
+
+   .todo-form {
+    padding : 1.5rem;
+   }
+
+    input[type="date"]{
+        font-size: 1rem;
+    }
+
+   /* .todo-details {
+    padding : 0;
+   } */
+
+   .todo-title {
+    font-size : 2rem; 
+   }
+
+   .todo-title-completed {
+    font-size : 2rem; 
+   }
+
+   
+
+}
+@media screen and (max-width : 1050px) {
+    
+    
+    .auth-container {
+        width: 40vw;
+        height: 40vh;
+    }
+    
+    
+   .todo-title {
+    font-size : 1.8rem; 
+   }
+
+   .todo-title-completed {
+    font-size : 1.8rem; 
+   }
+
+   input[type="date"]{
+        width : 3.5rem;
+   }
+}
+
+
+@media screen and (max-width : 1000px) {
+
+    .auth-container {
+        width: 50vw;
+        height: 40vh;
+    }
+}
+@media screen and (max-width : 800px) {
+
+    .auth-container {
+        width: 55vw;
+        height: 40vh;
+        padding : 2rem;
+    }
+}
+@media screen and (max-width : 700px) {
+    
+
+    .auth-container {
+        width: 60vw;
+        height: 40vh;
+        padding : 2rem;
+    }
+}
+
+@media screen and (max-width : 600px) {
+    .todo-list {
+        padding-top : 0;
+    }
+
+    .mainheader {
+        width : 98vw;
+        padding-top : 0;
+        padding-bottom : 0;
+
+    }
+    .todo-list {
+        width : 98vw;
+        margin-left : 3rem;
+        margin-right : 3rem;
+    }
+
+    .todo-list-completed {
+        width : 98vw;
+        margin-left : 3rem;
+        margin-right : 3rem;
+    }
+}
+
+
+    
+    
+    
+@media screen and (max-width : 500px) {
+
+    .auth-container {
+        width: 92vw;
+        padding : 1rem;
+    }
+}
+    

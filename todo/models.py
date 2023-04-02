@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import date
+import uuid
 
 class Todo(models.Model):
     title = models.CharField(max_length=100)
