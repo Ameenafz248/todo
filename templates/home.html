@@ -122,11 +122,11 @@
     newForm.addEventListener('keydown', function(event) {
         if (event.code == 'Escape' && !newForm.classList.contains('hide')) {
             newForm.classList.toggle('hide');
+            let k = document.querySelector('.nothing');
+            if (k) {
+                k.classList.toggle('hidden');
+            }
         }
-       let k = document.querySelector('.nothing');
-       if (k) {
-        k.classList.toggle('hidden');
-       }
     })
     
     function newTodo() {
