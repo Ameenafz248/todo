@@ -29,7 +29,8 @@ SECRET_KEY = env.str("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DEBUG", default=False)
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'ameenafz248.pythonanywhere.com']
 
 
 # Application definition
@@ -42,7 +43,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "whitenoise.runserver_nostatic",
     "django.contrib.staticfiles",
-    "allauth", 
+    "allauth",
     "allauth.account",
     "todo.apps.TodoConfig",
     "fontawesomefree",
@@ -52,7 +53,7 @@ INSTALLED_APPS = [
 
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
-    "allauth.account.auth_backends.AuthenticationBackend", 
+    "allauth.account.auth_backends.AuthenticationBackend",
 ]
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
