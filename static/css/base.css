@@ -335,6 +335,13 @@ label {
     text-decoration: underline;
 }
 
+.error-list {
+    text-align: center;
+    padding : 1rem;
+    color : red;
+    list-style-type: none;
+}
+
 .todo-delete-btn {
     background-color: #111;
     border : none;
@@ -514,4 +521,3 @@ label {
         padding : 1rem;
     }
 }
-    

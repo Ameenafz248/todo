@@ -14,9 +14,24 @@ Log In
     <!-- <label class="auth-label" for="id_password">Password:</label> -->
     <input type="password" name="password" class="auth-input" placeholder="Password" autocomplete="current-password" required id="id_password">
   </p>
+    {% if form.errors %}
+    {% for field in form %}
+        {% for error in field.errors %}
+        <ul class="error-list">
+          <li>{{ error }}</li>
+        </ul>
+        {% endfor %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+        <ul class="error-list">
+          <li>{{ error }}</li>
+        </ul>
+    {% endfor %}
+{% endif %}
     <button type="submit" class="auth-submit">Log in</button>
     <p><span class="auth-span">New user? </span><a href={% url 'account_signup' %} class="auth-swap">register</a></p>
 </form>
+
 
 {% endblock content %}
 
