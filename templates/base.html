@@ -11,7 +11,7 @@
     </head>
     <body>
             <header class="mainheader">
-                <h1 class="mainheading">TaskMate</h1>
+                    <h1 class="mainheading-icon"><i class="fa-solid fa-circle-check"></i><span class="mainheading">TaskMate</span></h1>
                 {% if user.is_authenticated %}
                 <form id="logout-form" action="accounts/logout/" method="post">
                     {% csrf_token %}

@@ -208,7 +208,6 @@ a {
     position: relative;
     /* transition : opacity 0.001s ease-in; */
     margin-bottom: 1rem;
-
 }
 
 .todo-form-title {
@@ -259,15 +258,13 @@ input[type="date"]{
    
 }
 
-
 .hide {
     height: 0;
-    margin : 0;
     padding : 0;
+    margin : 0;
     opacity: 0;
+
 }
-
-
 
 label {
     font-size : 1.3rem;
@@ -446,11 +443,6 @@ label {
         margin-right : 2rem;
         padding-top : 0;
     }
-
-    .form-margin {
-        margin-top: 2rem;
-    }
-
 
     .todo-list-completed {
         padding-top : 2rem;

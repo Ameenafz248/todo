@@ -60,27 +60,36 @@ a {
     margin-top: 1rem;
     justify-content: space-between;
     padding : 1rem 2rem 1rem 2rem;
-    border-bottom : 1px solid white;
+    border-bottom : 1px solid #999;
     background-color: #001540;
     margin : 0 auto 0 auto;
 }
+.mainheading-icon {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 .mainheader i {
-    font-size : 4rem;
+    font-size : 2rem;
     /* width : 6vw; */
     text-align: center;
-    color : #eabaf2;
+    color : #fff;
 }
 .logout {
-    color: white;
+    color: #eee;
     font-size: 2rem;
     cursor: pointer;
+    font-weight: 800;
+    font-family:'Times New Roman', Times, serif;
 }
 .mainheading {
+    margin-left: 0.3rem;
     font-size: 4rem;
     height: 5rem; 
     color : #fff;
     font-weight: 900;
     letter-spacing: 0.2rem;
+    font-family:'Times New Roman', Times, serif;
 }
 
 .todo-list {
@@ -127,6 +136,7 @@ a {
     flex-direction: column;
     justify-content: space-evenly;
     padding : 1.5rem 0 1rem 0;
+    word-spacing: -0.9rem;
 }
 
 
@@ -198,6 +208,7 @@ a {
     position: relative;
     /* transition : opacity 0.001s ease-in; */
     margin-bottom: 1rem;
+
 }
 
 .todo-form-title {
@@ -248,13 +259,15 @@ input[type="date"]{
    
 }
 
+
 .hide {
     height: 0;
-    padding : 0;
     margin : 0;
+    padding : 0;
     opacity: 0;
-
 }
+
+
 
 label {
     font-size : 1.3rem;
@@ -308,7 +321,9 @@ label {
     background-color: white;
     border-radius: 0.5rem;
     padding-left : 1rem;
-
+    font-weight: 800;
+    color : black;
+    letter-spacing: 0.1rem;
 }
 
 .auth-submit {
@@ -321,6 +336,7 @@ label {
     color : #fff;
     padding : 0.5rem;
     border : 1px groove white;
+    cursor : pointer;
 }
 
 .auth-span {
@@ -336,11 +352,12 @@ label {
 }
 
 .error-list {
-    text-align: center;
+    text-align: justify;
     padding : 1rem;
     color : red;
     list-style-type: none;
 }
+
 
 .todo-delete-btn {
     background-color: #111;
@@ -368,6 +385,10 @@ label {
 .search-bar {
     background-color: white;
     border : none;
+    color : black;
+    font-weight: 800;
+    letter-spacing: 0.1rem;
+    word-spacing: -0.2rem;
 }
 
 .search-link-a {
@@ -425,6 +446,11 @@ label {
         margin-right : 2rem;
         padding-top : 0;
     }
+
+    .form-margin {
+        margin-top: 2rem;
+    }
+
 
     .todo-list-completed {
         padding-top : 2rem;
