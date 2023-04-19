@@ -135,6 +135,7 @@
         */
         if (event.code == 'Escape' && !newForm.classList.contains('hide')) {
             newForm.classList.toggle('hide');
+            newForm.classList.toggle('form-margin');
             document.querySelector('.todo-form-title').value = "";
             let k = document.querySelector('.nothing');
             if (k) {
@@ -152,6 +153,7 @@
         let date_string = day + ", " + due_date.getDate() + " " + month;
         let url = "/";
         document.querySelector('.todo-form').classList.add('hide');
+        newForm.classList.toggle('form-margin');
         let div1 = document.createElement('div');
         div1.classList.add('todo-item');
         let div2 = document.createElement('div');
