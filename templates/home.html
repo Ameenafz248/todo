@@ -154,6 +154,7 @@
             body : new FormData(subform)
         }); 
         document.querySelector('.todo-form-title').value = "";
+        document.querySelector('.todo-form').classList.add('hide');
         let data = await response.json();
         let div1 = document.createElement('div');
         div1.classList.add('todo-item');
@@ -195,7 +196,6 @@
         form1.prepend(input1);
         div1.prepend(form1);
         div1.prepend(div2);
-        document.querySelector('.todo-form').classList.add('hide');
         let todoList = document.querySelector('.todo-form');
         let nothing = document.querySelector('.nothing');
         if (nothing) {
