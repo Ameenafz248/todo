@@ -5,17 +5,15 @@
 {% block content %}
             <a class="todo-add-btn"><span>Task</span><i id="todo-icon" class="fa-solid fa-square-plus"></i></a>
             <div class="search-box">
-                <form class="search-box-form" action="" method="get">
-                        <input types="search" class="search-bar" name="q" placeholder="Search your task.."/> 
-                        <a class="search-link-a" onClick="document.querySelector('.search-box-form').submit()">
+                <div class="search-box-form">
+                        <input types="search" onkeyup="myFilter()" class="search-bar" name="q" placeholder="Search your task.."/> 
+                        <a class="search-link-a"">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </a>
-                   {% if request.GET.q %} 
-                        <a class="search-clear-a">
+                        <a class="search-clear-a" style="display : none;">
                             <i class="fa-regular fa-circle-xmark"></i>
                         </a>
-                    {% endif %}
-                </form>
+                </div>
             </div>
 
     {% regroup todo_list by completed as seperate_list %}
@@ -24,12 +22,13 @@
             <div class="todo-list">
                 <form class="todo-form hide" method="post" action="">
                     {% csrf_token %}
-                    {{ form.as_p }}
-                    <button class="todo-sub-btn"><i class="fa-solid fa-plus"></i></button>
+                    <input type="text" name="title" class="todo-form-title" maxlength="100" required id="id_title">
+                    <input type="date" name="duedate" class="todo-form-date" required id="id_duedate">
+                    <a class="todo-sub-btn" onclick="addTodo()"><i class="fa-solid fa-plus"></i></a>
                 </form>
                 {% for todo in list %}
 
-                    <div class="todo-item"  id="todo-{{ todo.id }}">
+                    <div class="todo-item"  id="todo-{{ todo.id }}" date="{{ todo.duedate|date:'D, d M' }}">
                         <div class="todo-details">
                             <h3 class="todo-title">{{ todo.title }}</h3>
                             {% if todo.is_past %}
@@ -41,7 +40,7 @@
                             <form class="complete_form" id="t{{ todo.id }}" method="POST" action="{{ todo.id }}/update/">
                                 {% csrf_token %} 
                                 <input type="checkbox" id="d{{ todo.id }}" name="completed" class="is_completed" checked />
-                                    <a onClick="document.getElementById('t{{ todo.id }}').submit()">
+                                    <a onclick='updateTodo("{{todo.id}}", "{{todo.title}}")'>
                                         <i class="fa-solid fa-circle"></i>
                                     </a>
                             </form>
@@ -77,7 +76,7 @@
                         </div>
                             <form class="complete_form" id="d{{ todo.id }}" method="POST" action="{{ todo.id }}/delete/">
                                 {% csrf_token %}
-                                <button  class="todo-delete-btn" type="submit" >
+                                <button  class="todo-delete-btn" onclick="deleteTodo('{{ todo.id }}')" >
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
                             </form>
@@ -111,19 +110,101 @@
 {% endblock content %}
 {% block javascript %}
 <script>
+    var formDate = document.querySelector('.todo-form-date');
+    var today = new Date();
+    formDate.value = today.toISOString().substr(0, 10);
+
     var addButton = document.querySelector(".todo-add-btn");
     addButton.addEventListener("click", newTodo);
 
     var newForm = document.querySelector('.todo-form');
+    newForm.onkeypress = function(e) {
+        var key = e.charCode || e.keyCode || 0;     
+        if (key == 13) {
+          e.preventDefault();
+          addTodo();
+        }
+      }
+      
     newForm.addEventListener('keydown', function(event) {
+        /*let key = event.keyCode || e.charCode || 0;
+        if (key == 13) {
+            event.preventDefault();
+            addTodo();
+        }
+        */
         if (event.code == 'Escape' && !newForm.classList.contains('hide')) {
             newForm.classList.toggle('hide');
+            document.querySelector('.todo-form-title').value = "";
             let k = document.querySelector('.nothing');
             if (k) {
                 k.classList.toggle('hidden');
             }
         }
     })
+
+    async function addTodo(event) {
+        let subform = document.querySelector('.todo-form');
+        let url = "/";
+        const response = await fetch(url,
+        {
+           method : "POST", 
+           headers: {'X-CSRFToken': '{{ csrf_token }}'},
+            mode : 'same-origin',
+            body : new FormData(subform)
+        }); 
+        document.querySelector('.todo-form-title').value = "";
+        let data = await response.json();
+        let div1 = document.createElement('div');
+        div1.classList.add('todo-item');
+        let id = "todo-" + data.id;
+        div1.setAttribute('id', id );
+        div1.setAttribute('date', data.duedate);
+        let div2 = document.createElement('div');
+        div2.classList.add('todo-details')
+        let heading = document.createElement('h3');
+        heading.classList.add('todo-title');
+        heading.innerHTML = data.title
+        let p1 = document.createElement('p');
+        p1.classList.add('todo-duedate');
+        if (data.is_past) {
+            p1.classList.add('past');
+        }
+        p1.innerHTML = data.duedate
+        div2.prepend(heading);
+        div2.append(p1);
+        let form1 = document.createElement('form');
+        form1.classList.add('complete_form');
+        formId = "t" + data.id
+        form1.setAttribute('id', formId);
+        form1.setAttribute('method', "POST");
+        let input1 = document.createElement('input');
+        input1.setAttribute('type', 'checkbox');
+        let inputId = "d" + data.id;
+        input1.setAttribute('id', inputId);
+        input1.classList.add('is_completed');
+        input1.checked = true;
+        let a1 = document.createElement('a');
+        let ev = "updateTodo('" + data.id + "', '" + data.title + "')";
+        a1.setAttribute('onclick', ev);
+        
+        let i1 = document.createElement('i');
+        i1.classList.add('fa-solid', 'fa-circle');
+        a1.prepend(i1);
+        form1.prepend(a1);
+        form1.prepend(input1);
+        div1.prepend(form1);
+        div1.prepend(div2);
+        document.querySelector('.todo-form').classList.add('hide');
+        let todoList = document.querySelector('.todo-form');
+        let nothing = document.querySelector('.nothing');
+        if (nothing) {
+            nothing.remove();
+        }
+        clearSearch();
+        todoList.after(div1);
+        
+    }
     
     function newTodo() {
        let k = document.querySelector('.nothing');
@@ -147,10 +228,110 @@
     function clearSearch() {
        let searchInput = document.querySelector('.search-bar');
        searchInput.value = "";
-       console.log(searchInput.value);
-       let searchForm = document.querySelector('.search-box-form');
-       searchForm.submit();
+       myFilter();
+    }
+
+    async function updateTodo(num, title) {
+        let id  = "todo-" + num;
+        let curr = document.getElementById(id);
+        let date = curr.getAttribute('date');
+        subform_id = "t" + num;
+        let subform = document.getElementById(subform_id);
+        curr.remove();
+        let div1 = document.createElement("div");
+        div1.classList.add('todo-item');
+        div1.setAttribute('id', id );
+        let div2 = document.createElement('div');
+        let h3 = document.createElement('h3');
+        h3.classList.add('todo-title');
+        h3.classList.add('todo-title-completed');
+        h3.innerHTML = title;
+        let p1 = document.createElement('p');
+        p1.classList.add('todo-duedate', 'todo-duedate-completed');
+        p1.innerHTML = date;
+        div2.prepend(p1);
+        div2.prepend(h3);
+        let form1 = document.createElement('form');
+        form1.classList.add('complete_form');
+        formId = "d" + num
+        form1.setAttribute('id', formId); 
+       // form1.setAttribute('method', "POST");
+        //form1.setAttribute('action', "$(num)/delete/");
+        let button1 = document.createElement('button');
+        button1.classList.add('todo-delete-btn');
+        let delFun = "deleteTodo('" + num + "')";
+        button1.setAttribute('onclick', delFun);
+        let i1 = document.createElement('i');
+        i1.classList.add('fa-solid', 'fa-trash');
+        button1.prepend(i1);
+        form1.prepend(button1);
+        div1.prepend(div2);
+        div1.append(form1);
+        let complete_list = document.querySelector('.todo-list-completed')
+        complete_list.classList.remove('hidden')
+        complete_list.prepend(div1);
+        let todoList = document.querySelector('.todo-list');
+        if (todoList.childElementCount == 1) {
+            let nothing = document.createElement('h1');
+            nothing.classList.add('nothing');
+            nothing.innerHTML = 'Add Some Tasks!';
+            todoList.append(nothing);
+        }
+        let url = "/" + num + "/update/";
+        const response = await fetch(url,
+        {
+           method : "POST", 
+           headers: {'X-CSRFToken': '{{ csrf_token }}'},
+            mode : 'same-origin',
+            body : new FormData(subform)
+        });
+        
+    }
+    async function deleteTodo(num) {
+        let id  = "todo-" + num;
+        let curr = document.getElementById(id);
+        curr.remove();
+        let complete_list = document.querySelector('.todo-list-completed');
+        if (complete_list.childElementCount == 0){ 
+            complete_list.classList.add('hidden');
+        }
+        subform_id = "d" + num;
+        let subform = document.getElementById(subform_id);
+        let url = "/" + num + "/delete/";
+        const response = await fetch(url,
+        {
+           method : "POST", 
+           headers: {'X-CSRFToken': '{{ csrf_token }}'},
+            mode : 'same-origin',
+        });
+    }
+
+    function myFilter() {
+        
+        var input, filter, ul, li, a, i, txtValue, clear;
+        input = document.querySelector('.search-bar');
+        filter = input.value.toUpperCase();
+        clear = document.querySelector('.search-clear-a');
+        if (filter != "") {
+            clear.style.display = "";
+        }
+        else {
+            clear.style.display = "none";
+        }
+        ul = document.querySelector(".todo-list");
+        li = document.getElementsByClassName('todo-item');
+
+        for (i = 0; i < li.length; i++) {
+          a = li[i].firstElementChild.firstElementChild;
+          txtValue = a.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+          } else {
+            li[i].style.display = "none";
+          }
+        }
     }
 </script>
+
 {% endblock javascript %}
 

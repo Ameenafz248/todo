@@ -1,6 +1,6 @@
 from django.db import models
 from datetime import date
-import uuid
+import uuid, calendar
 
 class Todo(models.Model):
     title = models.CharField(max_length=100)
@@ -15,6 +15,12 @@ class Todo(models.Model):
     @property
     def is_completed(self):
         return self.completed
+
+    def formatted_date(self):
+        curr = self.duedate.strftime("%a, %d ")
+        month = self.duedate.month
+        curr += calendar.month_abbr[month]
+        return curr
 
 
     def __str__(self):

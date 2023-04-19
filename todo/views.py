@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.views.generic import ListView, CreateView, FormView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
@@ -52,8 +52,20 @@ class TodoListPostView(LoginRequiredMixin, FormView):
         todo = form.save(commit=False)
         todo.author = self.user
         todo.save()
-        return super().form_valid(form) 
+        return JsonResponse({'id' : todo.id, 'title' : todo.title, 'duedate' : todo.formatted_date(), 'is_past' : todo.is_past }, status=200) 
 
+class TodoCreateView(LoginRequiredMixin, CreateView):
+   model = Todo 
+   fields = ['title', 'author']
+   def post(self, request, *args, **kwargs):
+      self.user = request.user
+      return super().post(request, *args, **kwargs)
+
+   def form_valid(self, form):
+       todo = form.save(commit=False)
+       todo.author = self.user
+       todo.save()
+       return JsonResponse({'id' : todo.id, 'title' : todo.title, 'duedate' : todo.formatted_date()}, status=200) 
 
 class TodoCompleteView(LoginRequiredMixin,UpdateView):
     model = Todo
@@ -61,6 +73,15 @@ class TodoCompleteView(LoginRequiredMixin,UpdateView):
     fields = ['completed']
     success_url = reverse_lazy("home")
 
+
+    def form_valid(self, form) :
+        self.object = form.save()
+        return JsonResponse({'hi' : self.object.id}, status=201)
+
+
+    def form_invalid(self, form) :
+        return JsonResponse(form.errors.as_json(), status=400)
+   
 
     def get_queryset(self):
         queryset = super(TodoCompleteView, self).get_queryset()
@@ -71,6 +92,10 @@ class TodoDeleteView(LoginRequiredMixin, DeleteView):
     model = Todo
     template_name = "todo_delete.html"
     success_url = reverse_lazy("home")
+
+    def form_valid(self, form):
+        self.get_object().delete()
+        return JsonResponse({}, status=200)
     
     def get_queryset(self):
         queryset = super(TodoDeleteView, self).get_queryset()
