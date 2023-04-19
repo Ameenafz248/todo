@@ -185,14 +185,18 @@
         let todoList = document.querySelector('.todo-form');
         let nothing = document.querySelector('.nothing');
         todoList.after(div1);
+        if (nothing) {
+            nothing.remove();
+        }
+        let fdata = new FormData(subform);
+        document.querySelector('.todo-form-title').value = "";
         const response = await fetch(url,
         {
            method : "POST", 
            headers: {'X-CSRFToken': '{{ csrf_token }}'},
             mode : 'same-origin',
-            body : new FormData(subform)
+            body : fdata
         }); 
-        document.querySelector('.todo-form-title').value = "";
         let data = await response.json();
         let id = "todo-" + data.id;
         div1.setAttribute('id', id );
@@ -206,9 +210,7 @@
         input1.setAttribute('id', inputId);
         let ev = "updateTodo('" + data.id + "', '" + data.title + "')";
         a1.setAttribute('onclick', ev);
-        if (nothing) {
-            nothing.remove();
-        }
+
         clearSearch();
         
     }
