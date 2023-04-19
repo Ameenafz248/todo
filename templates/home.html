@@ -145,49 +145,33 @@
 
     async function addTodo(event) {
         let subform = document.querySelector('.todo-form');
+        let dateval = document.querySelector('.todo-form-date').value;
+        let due_date = new Date(dateval);
+        let day = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][due_date.getDay()];
+        let month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][due_date.getMonth()];
+        let date_string = day + ", " + due_date.getDate() + " " + month;
         let url = "/";
         document.querySelector('.todo-form').classList.add('hide');
-        const response = await fetch(url,
-        {
-           method : "POST", 
-           headers: {'X-CSRFToken': '{{ csrf_token }}'},
-            mode : 'same-origin',
-            body : new FormData(subform)
-        }); 
-        document.querySelector('.todo-form-title').value = "";
-        let data = await response.json();
         let div1 = document.createElement('div');
         div1.classList.add('todo-item');
-        let id = "todo-" + data.id;
-        div1.setAttribute('id', id );
-        div1.setAttribute('date', data.duedate);
         let div2 = document.createElement('div');
         div2.classList.add('todo-details')
         let heading = document.createElement('h3');
         heading.classList.add('todo-title');
-        heading.innerHTML = data.title
+        heading.innerHTML = document.querySelector('.todo-form-title').value
         let p1 = document.createElement('p');
         p1.classList.add('todo-duedate');
-        if (data.is_past) {
-            p1.classList.add('past');
-        }
-        p1.innerHTML = data.duedate
+        p1.innerHTML = date_string;
         div2.prepend(heading);
         div2.append(p1);
         let form1 = document.createElement('form');
         form1.classList.add('complete_form');
-        formId = "t" + data.id
-        form1.setAttribute('id', formId);
         form1.setAttribute('method', "POST");
         let input1 = document.createElement('input');
         input1.setAttribute('type', 'checkbox');
-        let inputId = "d" + data.id;
-        input1.setAttribute('id', inputId);
         input1.classList.add('is_completed');
         input1.checked = true;
         let a1 = document.createElement('a');
-        let ev = "updateTodo('" + data.id + "', '" + data.title + "')";
-        a1.setAttribute('onclick', ev);
         
         let i1 = document.createElement('i');
         i1.classList.add('fa-solid', 'fa-circle');
@@ -198,11 +182,32 @@
         div1.prepend(div2);
         let todoList = document.querySelector('.todo-form');
         let nothing = document.querySelector('.nothing');
+        todoList.after(div1);
+        const response = await fetch(url,
+        {
+           method : "POST", 
+           headers: {'X-CSRFToken': '{{ csrf_token }}'},
+            mode : 'same-origin',
+            body : new FormData(subform)
+        }); 
+        document.querySelector('.todo-form-title').value = "";
+        let data = await response.json();
+        let id = "todo-" + data.id;
+        div1.setAttribute('id', id );
+        div1.setAttribute('date', data.duedate);
+        if (data.is_past) {
+            p1.classList.add('past');
+        }
+        formId = "t" + data.id
+        form1.setAttribute('id', formId);
+        let inputId = "d" + data.id;
+        input1.setAttribute('id', inputId);
+        let ev = "updateTodo('" + data.id + "', '" + data.title + "')";
+        a1.setAttribute('onclick', ev);
         if (nothing) {
             nothing.remove();
         }
         clearSearch();
-        todoList.after(div1);
         
     }
     
