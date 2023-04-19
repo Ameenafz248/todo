@@ -146,6 +146,8 @@
     async function addTodo(event) {
         let subform = document.querySelector('.todo-form');
         let url = "/";
+        document.querySelector('.todo-form').classList.add('hide');
+        document.querySelector('.todo-form-title').value = "";
         const response = await fetch(url,
         {
            method : "POST", 
@@ -153,8 +155,6 @@
             mode : 'same-origin',
             body : new FormData(subform)
         }); 
-        document.querySelector('.todo-form-title').value = "";
-        document.querySelector('.todo-form').classList.add('hide');
         let data = await response.json();
         let div1 = document.createElement('div');
         div1.classList.add('todo-item');
