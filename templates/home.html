@@ -20,7 +20,7 @@
     {% for status, list in seperate_list %}
         {% if not  status and   forloop.counter0 == 0 %}
             <div class="todo-list">
-                <form class="todo-form hide" method="post" action="">
+                <form class="todo-form hide" method="post" action="create/">
                     {% csrf_token %}
                     <input type="text" name="title" class="todo-form-title" maxlength="100" required id="id_title">
                     <input type="date" name="duedate" class="todo-form-date" required id="id_duedate">
