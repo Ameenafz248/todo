@@ -330,7 +330,7 @@ label {
 
 .auth-submit {
     width: 80%;
-    height: 5vh;
+    /* height: 5vh; */
     border : none;
     border-radius: 1rem;
     background-color: #000;
@@ -549,6 +549,43 @@ label {
     .auth-container {
         width: 92vw;
         padding : 1rem;
+    }
+}
+
+@media screen and (max-height : 600px) {
+    .auth-container {
+        height : 45vh;
+    }
+}
+
+@media screen and (max-height : 500px) {
+    .auth-container {
+        height : 50vh;
+    }
+}
+
+@media screen and (max-height : 550px) {
+    .auth-container {
+        height : 50vh;
+    }
+}
+
+
+@media screen and (max-height : 480px) {
+    .auth-container {
+        height : 60vh;
+    }
+}
+
+@media screen and (max-height : 450px) {
+    .auth-container {
+        height : 60vh;
+    }
+}
+
+@media screen and (max-height : 400px) {
+    .auth-container {
+        height : 70vh;
     }
 }
 
