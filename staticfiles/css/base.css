@@ -24,6 +24,7 @@ body::-webkit-scrollbar-thumb {
   background-color: darkgrey;
   outline: 1px solid slategrey;
 }
+ 
 
 html {
     font-size: 62.5%;
@@ -212,6 +213,7 @@ a {
 }
 
 .todo-form-title {
+    width: 70%;
     font-size : 2rem;
     letter-spacing: 0.2rem;
     color : #fff;
@@ -222,7 +224,7 @@ a {
 }
 
 input[type="date"]{
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     font-weight: 900;
     padding : 1rem;
     letter-spacing: 0.1rem;
@@ -492,10 +494,8 @@ label {
    }
 
 
-   input[type="date"]{
-        width : 3.5rem;
-   }
-}
+
+} 
 
 
 @media screen and (max-width : 1000px) {
@@ -512,6 +512,10 @@ label {
         height: 40vh;
         padding : 2rem;
     }
+
+    input[type="date"]{
+        width : 3.5rem;
+   }
 }
 @media screen and (max-width : 700px) {
     
@@ -547,3 +551,14 @@ label {
         padding : 1rem;
     }
 }
+
+ .todo-list::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .todo-list {
+    -ms-overflow-style: none;  
+    scrollbar-width: none;  
+  } 
+
+ 
