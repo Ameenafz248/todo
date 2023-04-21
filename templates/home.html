@@ -145,6 +145,11 @@
     })
 
     async function addTodo(event) {
+        
+        if (document.querySelector('.todo-form-title').value == "") {
+            return;
+        }
+
         let subform = document.querySelector('.todo-form');
         let dateval = document.querySelector('.todo-form-date').value;
         let due_date = new Date(dateval);
