@@ -1,5 +1,5 @@
 ### TaskMate
-##### A simple todo app to create, check and delete tasks.
+##### A simple Django todo app to create, check and delete tasks
 ## Features
 - Full authentication support using django-allauth
 - Dynamically create, update and delete task which are already done
